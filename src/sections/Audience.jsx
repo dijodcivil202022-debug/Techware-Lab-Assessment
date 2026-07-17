@@ -37,7 +37,7 @@ export default function Audience() {
           const x = orbitState.radius * Math.sign(cosT) * Math.pow(Math.abs(cosT), power)
           const y = orbitState.radius * Math.sign(sinT) * Math.pow(Math.abs(sinT), power)
 
-          gsap.set(badge, { x, y })
+          gsap.set(badge, { x, y, xPercent: -50, yPercent: -50 })
         })
       }
 
