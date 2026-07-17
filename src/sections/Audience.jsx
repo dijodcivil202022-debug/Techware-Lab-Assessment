@@ -21,33 +21,48 @@ export default function Audience() {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      const isMobile = window.innerWidth <= 809
-      const startRadius = isMobile ? 130 : 300
-      const endRadius = isMobile ? 60 : 130
-      const angleOffset = (Math.PI * 2) / labels.length
+      let mm = gsap.matchMedia()
 
-      const orbitState = { angle: 0, radius: startRadius }
+      mm.add("(min-width: 768px)", () => {
+        setupOrbit(400, 150)
+      })
 
-      const updatePositions = () => {
-        badgesRef.current.forEach((badge, index) => {
-          if (!badge) return
-          const currentAngle = -(orbitState.angle + index * angleOffset)
-          const x = Math.cos(currentAngle) * orbitState.radius
-          const y = Math.sin(currentAngle) * orbitState.radius
+      mm.add("(max-width: 767px)", () => {
+        const dynamicRadius = window.innerWidth * 0.35
+        setupOrbit(dynamicRadius > 140 ? dynamicRadius : 140, 80)
+      })
 
-          gsap.set(badge, { x: x, y: y, xPercent: -50, yPercent: -50 })
+      function setupOrbit(startRadius, endRadius) {
+        const angleOffset = (Math.PI * 2) / labels.length
+        const orbitState = { angle: 0, radius: startRadius }
+
+        const updatePositions = () => {
+          badgesRef.current.forEach((badge, index) => {
+            if (!badge) return
+            const currentAngle = -(orbitState.angle + index * angleOffset)
+            const x = Math.cos(currentAngle) * orbitState.radius
+            const y = Math.sin(currentAngle) * orbitState.radius
+
+            gsap.set(badge, { x, y })
+          })
+        }
+
+        updatePositions()
+
+        gsap.to(orbitState, {
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1.5,
+            invalidateOnRefresh: true,
+          },
+          angle: Math.PI * 2,
+          radius: endRadius,
+          ease: "none",
+          onUpdate: updatePositions,
         })
       }
-
-      updatePositions()
-
-      gsap.to(orbitState, {
-        angle: Math.PI * 2,
-        duration: 25,
-        ease: "none",
-        repeat: -1,
-        onUpdate: updatePositions,
-      })
     }, containerRef)
 
     return () => ctx.revert()
