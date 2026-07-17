@@ -10,15 +10,11 @@ gsap.registerPlugin(ScrollTrigger)
 const labels = [
   { className: "label-compliance", image: "/badge-compliance.png" },
   { className: "label-immigration", image: "/badge-immigration.png" },
-  {
-    className: "label-financial", image: "/Financial Institutions.png" },
+  { className: "label-financial", image: "/Financial Institutions.png" },
   { className: "label-hr", image: "/HR & Recruitment Firms.png" },
-  {
-    
-    className: "label-university", image: "/badge-university.png" },
+  { className: "label-university", image: "/badge-university.png" },
 ]
 
-  
 export default function Audience() {
   const containerRef = useRef(null)
   const badgesRef = useRef([])
@@ -28,16 +24,16 @@ export default function Audience() {
       let mm = gsap.matchMedia()
 
       mm.add("(min-width: 768px)", () => {
-        setupOrbit(400, 150)
+        setupOrbit(300)
       })
 
-      mm.add("(max-width: 760px)", () => {
-        setupOrbit(150, 150)
+      mm.add("(max-width: 767px)", () => {
+        setupOrbit(150)
       })
 
-      function setupOrbit(startRadius, endRadius) {
+      function setupOrbit(radius) {
         const angleOffset = (Math.PI * 2) / labels.length
-        const orbitState = { angle: 0, radius: startRadius }
+        const orbitState = { angle: 0, radius: radius }
 
         const updatePositions = () => {
           badgesRef.current.forEach((badge, index) => {
@@ -53,54 +49,48 @@ export default function Audience() {
         updatePositions()
 
         gsap.to(orbitState, {
-        scrollTrigger: {
-          trigger: containerRef.current,
-            start: "top bottom",
-              end: "bottom top",
-                scrub: 1.5,
-                  invalidateOnRefresh: true,
-          },
-        angle: Math.PI * 2,
-          radius: endRadius,
-            ease: "none",
-              onUpdate: updatePositions,
+          angle: Math.PI * 2,
+          duration: 25,
+          ease: "none",
+          repeat: -1,
+          onUpdate: updatePositions,
         })
-  }
+      }
     }, containerRef)
 
-return () => ctx.revert()
+    return () => ctx.revert()
   }, [])
 
-return (
-  <section id="industries" className="audience section" ref={containerRef} style={{ position: 'relative', zIndex: 4, background: 'transparent' }}>
-    <img
-      className="audience-glow"
-      src={ASSETS.audienceGradient}
-      alt=""
-      aria-hidden="true"
-      loading="lazy"
-    />
-    <Reveal className="section-heading">
-      <span className="eyebrow">• Who It’s For</span>
-      <h2 style={{ fontWeight: 400, letterSpacing: '-0.02em' }}>
-        Built for workflows where <br />
-        trust is non-negotiable.
-      </h2>
-      <p>Wherever credentials matter, Lorem handles the verification</p>
-    </Reveal>
-    <Reveal className="orbit" delay={0.1}>
-      <img src={orabSvg} alt="" aria-hidden="true" className="orbit-bg" loading="lazy" />
+  return (
+    <section id="industries" className="audience section" ref={containerRef} style={{ position: 'relative', zIndex: 4, background: 'transparent' }}>
+      <img
+        className="audience-glow"
+        src={ASSETS.audienceGradient}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+      />
+      <Reveal className="section-heading">
+        <span className="eyebrow">• Who It’s For</span>
+        <h2 style={{ fontWeight: 400, letterSpacing: '-0.02em' }}>
+          Built for workflows where <br />
+          trust is non-negotiable.
+        </h2>
+        <p>Wherever credentials matter, Lorem handles the verification</p>
+      </Reveal>
+      <Reveal className="orbit" delay={0.1}>
+        <img src={orabSvg} alt="" aria-hidden="true" className="orbit-bg" loading="lazy" />
 
-      {labels.map((item, i) => (
-        <div
-          key={i}
-          className={`orbit-label ${item.className}`}
-          ref={(el) => (badgesRef.current[i] = el)}
-        >
-          <img src={item.image} alt="" aria-hidden="true" loading="lazy" />
-        </div>
-      ))}
-    </Reveal>
-  </section>
-)
+        {labels.map((item, i) => (
+          <div
+            key={i}
+            className={`orbit-label ${item.className}`}
+            ref={(el) => (badgesRef.current[i] = el)}
+          >
+            <img src={item.image} alt="" aria-hidden="true" loading="lazy" />
+          </div>
+        ))}
+      </Reveal>
+    </section>
+  )
 }
