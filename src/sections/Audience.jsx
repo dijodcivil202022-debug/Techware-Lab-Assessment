@@ -52,16 +52,10 @@ export default function Audience() {
         updatePositions()
 
         gsap.to(orbitState, {
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.5,
-            invalidateOnRefresh: true,
-          },
           angle: Math.PI * 2,
-          radius: endRadius,
+          duration: 25,
           ease: "none",
+          repeat: -1,
           onUpdate: updatePositions,
         })
       }
