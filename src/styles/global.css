@@ -523,8 +523,8 @@ a:focus-visible {
 
 .orbit-label {
   position: absolute;
-  left: 50%;
   top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
@@ -775,7 +775,7 @@ a:focus-visible {
   .nav-links {
     display: none;
   }
-  
+
   .mobile-menu-btn {
     display: block;
   }
@@ -995,35 +995,7 @@ a:focus-visible {
     font-size: 13px;
   }
 
-  .label-compliance {
-    left: 0;
-    top: 40px;
-    width: 180px;
-  }
 
-  .label-immigration {
-    left: 190px;
-    top: 18px;
-    width: 170px;
-  }
-
-  .label-financial {
-    left: 176px;
-    top: 240px;
-    width: 184px;
-  }
-
-  .label-hr {
-    left: 0;
-    top: 306px;
-    width: 184px;
-  }
-
-  .label-university {
-    left: 84px;
-    top: 366px;
-    width: 245px;
-  }
 
   .platform {
     padding: 84px 18px 56px;

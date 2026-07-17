@@ -10,9 +10,11 @@ gsap.registerPlugin(ScrollTrigger)
 const labels = [
   { className: "label-compliance", image: "/badge-compliance.png" },
   { className: "label-immigration", image: "/badge-immigration.png" },
-  { className: "label-financial", image: "/Financial Institutions.png" },
+  {
+    className: "label-financial", image: "/Financial Institutions.png" },
   { className: "label-hr", image: "/HR & Recruitment Firms.png" },
-  { className: "label-university", image: "/badge-university.png" },
+  {
+    className: "label-university", image: "/badge-university.png" },
 ]
 
 export default function Audience() {
@@ -27,9 +29,9 @@ export default function Audience() {
         setupOrbit(400, 150)
       })
 
-      mm.add("(max-width: 767px)", () => {
+      mm.add("(max-width: 760px)", () => {
         const dynamicRadius = window.innerWidth * 0.35
-        setupOrbit(dynamicRadius > 140 ? dynamicRadius : 140, 80)
+        setupOrbit(dynamicRadius > 120 ? dynamicRadius : 120, 60)
       })
 
       function setupOrbit(startRadius, endRadius) {
@@ -68,36 +70,36 @@ export default function Audience() {
     return () => ctx.revert()
   }, [])
 
-  return (
-    <section id="industries" className="audience section" ref={containerRef} style={{ position: 'relative', zIndex: 4, background: 'transparent' }}>
-      <img
-        className="audience-glow"
-        src={ASSETS.audienceGradient}
-        alt=""
-        aria-hidden="true"
-        loading="lazy"
-      />
-      <Reveal className="section-heading">
-        <span className="eyebrow">• Who It’s For</span>
-        <h2 style={{ fontWeight: 400, letterSpacing: '-0.02em' }}>
-          Built for workflows where <br />
-          trust is non-negotiable.
-        </h2>
-        <p>Wherever credentials matter, Lorem handles the verification</p>
-      </Reveal>
-      <Reveal className="orbit" delay={0.1}>
-        <img src={orabSvg} alt="" aria-hidden="true" className="orbit-bg" loading="lazy" />
+return (
+  <section id="industries" className="audience section" ref={containerRef} style={{ position: 'relative', zIndex: 4, background: 'transparent' }}>
+    <img
+      className="audience-glow"
+      src={ASSETS.audienceGradient}
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+    />
+    <Reveal className="section-heading">
+      <span className="eyebrow">• Who It’s For</span>
+      <h2 style={{ fontWeight: 400, letterSpacing: '-0.02em' }}>
+        Built for workflows where <br />
+        trust is non-negotiable.
+      </h2>
+      <p>Wherever credentials matter, Lorem handles the verification</p>
+    </Reveal>
+    <Reveal className="orbit" delay={0.1}>
+      <img src={orabSvg} alt="" aria-hidden="true" className="orbit-bg" loading="lazy" />
 
-        {labels.map((item, i) => (
-          <div
-            key={i}
-            className={`orbit-label ${item.className}`}
-            ref={(el) => (badgesRef.current[i] = el)}
-          >
-            <img src={item.image} alt="" aria-hidden="true" loading="lazy" />
-          </div>
-        ))}
-      </Reveal>
-    </section>
-  )
+      {labels.map((item, i) => (
+        <div
+          key={i}
+          className={`orbit-label ${item.className}`}
+          ref={(el) => (badgesRef.current[i] = el)}
+        >
+          <img src={item.image} alt="" aria-hidden="true" loading="lazy" />
+        </div>
+      ))}
+    </Reveal>
+  </section>
+)
 }
