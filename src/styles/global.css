@@ -523,7 +523,7 @@ a:focus-visible {
 
 .orbit-label {
   position: absolute;
-  left: 47%;
+  left: 40%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
