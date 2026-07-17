@@ -36,11 +36,17 @@ export default function Audience() {
         const orbitState = { angle: 0, radius: radius }
 
         const updatePositions = () => {
+          const power = 0.6 // The squircle "boxiness" factor
+
           badgesRef.current.forEach((badge, index) => {
             if (!badge) return
             const currentAngle = -(orbitState.angle + index * angleOffset)
-            const x = Math.cos(currentAngle) * orbitState.radius
-            const y = Math.sin(currentAngle) * orbitState.radius
+            const cosT = Math.cos(currentAngle)
+            const sinT = Math.sin(currentAngle)
+
+            // Superellipse equations
+            const x = orbitState.radius * Math.sign(cosT) * Math.pow(Math.abs(cosT), power)
+            const y = orbitState.radius * Math.sign(sinT) * Math.pow(Math.abs(sinT), power)
 
             gsap.set(badge, { x, y })
           })
