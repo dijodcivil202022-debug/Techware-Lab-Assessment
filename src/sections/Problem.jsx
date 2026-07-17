@@ -27,7 +27,8 @@ export default function Problem() {
 
   useGSAP(() => {
     gsap.set([mainTextRef.current, subTextRef.current], {
-      y: 40
+      y: 40,
+      opacity: 0
     });
 
     const tl = gsap.timeline({
@@ -41,10 +42,12 @@ export default function Problem() {
 
     tl.to(mainTextRef.current, {
       y: 0,
+      opacity: 1,
       ease: 'power2.out'
     })
     .to(subTextRef.current, {
       y: 0,
+      opacity: 1,
       ease: 'power2.out'
     }, "-=0.2");
   }, { scope: containerRef });
@@ -60,7 +63,7 @@ export default function Problem() {
         />
         <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', height: '20%', background: 'linear-gradient(to bottom, transparent, var(--bg))', pointerEvents: 'none' }} />
 
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 8%', zIndex: 2 }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '24px', padding: '0 8%', zIndex: 2 }}>
           <p ref={mainTextRef} style={{ margin: '0', textAlign: 'left' }}>
             <span className="sentence" style={getStyle(0)} role="button" tabIndex={0} onClick={() => setActive(0)} onKeyDown={(e) => handleKeyDown(e, 0)}>PDFs get forged. Emails get lost. Manual checks create liability.</span>
           </p>

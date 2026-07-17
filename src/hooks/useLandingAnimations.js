@@ -85,25 +85,7 @@ export function useLandingAnimations() {
           start: "top 72%",
         },
       })
-      gsap.from(".problem-card h2", {
-        y: 36,
-        opacity: 0,
-        duration: 0.85,
-        scrollTrigger: {
-          trigger: ".problem-card",
-          start: "top 68%",
-        },
-      })
-      gsap.from(".problem-card p", {
-        y: 36,
-        opacity: 0,
-        duration: 0.85,
-        delay: 0.12,
-        scrollTrigger: {
-          trigger: ".problem-card",
-          start: "top 68%",
-        },
-      })
+
       /**
        * AUDIENCE SECTION
        */
