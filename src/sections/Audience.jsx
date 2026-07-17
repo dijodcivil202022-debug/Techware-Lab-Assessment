@@ -14,9 +14,11 @@ const labels = [
     className: "label-financial", image: "/Financial Institutions.png" },
   { className: "label-hr", image: "/HR & Recruitment Firms.png" },
   {
+    
     className: "label-university", image: "/badge-university.png" },
 ]
 
+  
 export default function Audience() {
   const containerRef = useRef(null)
   const badgesRef = useRef([])
@@ -30,8 +32,7 @@ export default function Audience() {
       })
 
       mm.add("(max-width: 760px)", () => {
-        const dynamicRadius = window.innerWidth * 0.35
-        setupOrbit(dynamicRadius > 120 ? dynamicRadius : 120, 60)
+        setupOrbit(150, 150)
       })
 
       function setupOrbit(startRadius, endRadius) {
@@ -52,16 +53,22 @@ export default function Audience() {
         updatePositions()
 
         gsap.to(orbitState, {
-          angle: Math.PI * 2,
-          duration: 25,
-          ease: "none",
-          repeat: -1,
-          onUpdate: updatePositions,
+        scrollTrigger: {
+          trigger: containerRef.current,
+            start: "top bottom",
+              end: "bottom top",
+                scrub: 1.5,
+                  invalidateOnRefresh: true,
+          },
+        angle: Math.PI * 2,
+          radius: endRadius,
+            ease: "none",
+              onUpdate: updatePositions,
         })
-      }
+  }
     }, containerRef)
 
-    return () => ctx.revert()
+return () => ctx.revert()
   }, [])
 
 return (
