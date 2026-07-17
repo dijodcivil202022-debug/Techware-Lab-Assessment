@@ -54,7 +54,7 @@ export default function Problem() {
 
   return (
     <section id="solution" className="problem section" ref={containerRef} style={{ background: 'transparent' }}>
-      <div className="problem-card" style={{ position: 'relative', padding: 0, background: 'transparent', border: 'none', boxShadow: 'none', width: '90%', margin: '0 auto', transformOrigin: 'bottom center' }}>
+      <div className="problem-card" style={{ position: 'relative', padding: 0, minHeight: 'auto', background: 'transparent', border: 'none', boxShadow: 'none', width: '90%', margin: '0 auto', transformOrigin: 'bottom center' }}>
         <img
           src="/Folders.png"
           alt="Illustration of folders stacked securely"
