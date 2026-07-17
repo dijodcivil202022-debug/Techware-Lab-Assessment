@@ -36,7 +36,7 @@ export default function Audience() {
         const orbitState = { angle: 0, radius: radius }
 
         const updatePositions = () => {
-          const power = 0.6 // The squircle "boxiness" factor
+          const power = 0.6 // squircle power
 
           badgesRef.current.forEach((badge, index) => {
             if (!badge) return
@@ -44,7 +44,7 @@ export default function Audience() {
             const cosT = Math.cos(currentAngle)
             const sinT = Math.sin(currentAngle)
 
-            // Superellipse equations
+            // Superellipse math
             const x = orbitState.radius * Math.sign(cosT) * Math.pow(Math.abs(cosT), power)
             const y = orbitState.radius * Math.sign(sinT) * Math.pow(Math.abs(sinT), power)
 
