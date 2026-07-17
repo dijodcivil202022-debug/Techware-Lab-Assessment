@@ -129,37 +129,7 @@ export function useLandingAnimations() {
         },
       })
 
-      const orbitState = { angle: 0, radius: 255 }
-      const badges = gsap.utils.toArray(".orbit-label")
 
-      const updateBadges = () => {
-        badges.forEach((badge, i) => {
-          const angleOffset = (i / badges.length) * Math.PI * 2
-          const currentAngle = orbitState.angle + angleOffset
-          const x = Math.cos(currentAngle) * orbitState.radius
-          const y = Math.sin(currentAngle) * orbitState.radius
-
-          gsap.set(badge, { x, y })
-        })
-      }
-
-      updateBadges()
-
-      gsap.to(orbitState, {
-        angle: Math.PI * 2,
-        duration: 20,
-        ease: "none",
-        repeat: -1,
-        onUpdate: updateBadges,
-      })
-
-      gsap.to(orbitState, {
-        radius: 195,
-        duration: 8,
-        ease: "power2.inOut",
-        yoyo: true,
-        repeat: -1,
-      })
 
       /**
        * FOOTER REVEAL
