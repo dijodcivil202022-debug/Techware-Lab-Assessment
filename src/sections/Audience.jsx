@@ -21,47 +21,51 @@ export default function Audience() {
 
   useEffect(() => {
     let ctx = gsap.context(() => {
-      let mm = gsap.matchMedia()
+      const angleOffset = (Math.PI * 2) / labels.length
+      const orbitState = { angle: 0, radius: 300 }
 
-      mm.add("(min-width: 768px)", () => {
-        setupOrbit(300)
-      })
+      const updatePositions = () => {
+        const power = 0.6 // squircle power
 
-      mm.add("(max-width: 767px)", () => {
-        setupOrbit(150)
-      })
+        badgesRef.current.forEach((badge, index) => {
+          if (!badge) return
+          const currentAngle = -(orbitState.angle + index * angleOffset)
+          const cosT = Math.cos(currentAngle)
+          const sinT = Math.sin(currentAngle)
 
-      function setupOrbit(radius) {
-        const angleOffset = (Math.PI * 2) / labels.length
-        const orbitState = { angle: 0, radius: radius }
+          // Superellipse math
+          const x = orbitState.radius * Math.sign(cosT) * Math.pow(Math.abs(cosT), power)
+          const y = orbitState.radius * Math.sign(sinT) * Math.pow(Math.abs(sinT), power)
 
-        const updatePositions = () => {
-          const power = 0.6 // squircle power
-
-          badgesRef.current.forEach((badge, index) => {
-            if (!badge) return
-            const currentAngle = -(orbitState.angle + index * angleOffset)
-            const cosT = Math.cos(currentAngle)
-            const sinT = Math.sin(currentAngle)
-
-            // Superellipse math
-            const x = orbitState.radius * Math.sign(cosT) * Math.pow(Math.abs(cosT), power)
-            const y = orbitState.radius * Math.sign(sinT) * Math.pow(Math.abs(sinT), power)
-
-            gsap.set(badge, { x, y })
-          })
-        }
-
-        updatePositions()
-
-        gsap.to(orbitState, {
-          angle: Math.PI * 2,
-          duration: 25,
-          ease: "none",
-          repeat: -1,
-          onUpdate: updatePositions,
+          gsap.set(badge, { x, y })
         })
       }
+
+      // Dynamically calculate radius to be exactly 1/3 of the container width
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (let entry of entries) {
+          orbitState.radius = entry.contentRect.width / 3
+        }
+        updatePositions()
+      })
+
+      if (containerRef.current) {
+        // Target the .orbit element itself for accurate width reading
+        const orbitElement = containerRef.current.querySelector('.orbit')
+        if (orbitElement) {
+          resizeObserver.observe(orbitElement)
+        }
+      }
+
+      gsap.to(orbitState, {
+        angle: Math.PI * 2,
+        duration: 25,
+        ease: "none",
+        repeat: -1,
+        onUpdate: updatePositions,
+      })
+
+      return () => resizeObserver.disconnect()
     }, containerRef)
 
     return () => ctx.revert()
