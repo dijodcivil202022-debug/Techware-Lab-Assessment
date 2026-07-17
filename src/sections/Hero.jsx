@@ -24,9 +24,9 @@ export default function Hero() {
     }, (context) => {
       let { isMobile, isTablet } = context.conditions;
 
-      const yPhone = isMobile ? 60 : isTablet ? 120 : 200;
-      const yLeft = isMobile ? 120 : isTablet ? 180 : 300;
-      const yRight = isMobile ? 140 : isTablet ? 200 : 350;
+      const yPhone = isMobile ? 100 : 120;
+      const yLeft = isMobile ? 160 : 180;
+      const yRight = isMobile ? 180 : 200;
 
       gsap.set(phoneRef.current, { y: yPhone })
       gsap.set(leftCardRef.current, { y: yLeft })

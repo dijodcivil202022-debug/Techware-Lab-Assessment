@@ -916,7 +916,6 @@ a:focus-visible {
     transform: scale(0.43);
     transform-origin: top center;
     margin-bottom: -290px;
-    margin-top: 20px;
   }
 
   .problem {
